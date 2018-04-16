@@ -1,0 +1,395 @@
+﻿/* Arquivo concentrador de códigos JS/Jquery para a tab de Movimentação (Etapas).
+*
+*  Histórico de Alterações
+*  Nº Alt.  Data        Pessoa            Chamado  Descrição
+*  ------- ----------- ------------------ -------- -----------------------------------------------------------------------------------------------
+*  000     09/06/2017  Adriano Tomczak    #10649   -Criação do arquivo. 
+*  001
+*  002
+*
+*/
+
+function gerenciaEtapa() {               
+    //status Em Geração
+    if ($("[id$=selStatus]").val() == "EG") {
+        //bloqueia o clique da etapa
+        $("#etapaAguardandoAceite").attr('data-toggle', $("#etapaAguardandoAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoGerNegocio").attr('data-toggle', $("#etapaAguardandoGerNegocio").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoCadCrono").attr('data-toggle', $("#etapaAguardandoCadCrono").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoLibOrc").attr('data-toggle', $("#etapaAguardandoLibOrc").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaOrcamentoRealizado").attr('data-toggle', $("#etapaOrcamentoRealizado").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        //quando não é revisão 0 ou não é complemento 0 mostra a div para marcação dos escopos que sofreram modificações
+        if ($("[id$=txtRevisaoAux]").val() == "0" && $("[id$=txtComplementoAux]").val() == "0") {
+            $(".modificacoesEscopos").hide();            
+        } else {
+            $(".modificacoesEscopos").show();            
+        }
+    }
+    //status Aguardando aceite
+    if ($("[id$=selStatus]").val() == "AA") {
+        //deixa a etapa "Gerando Solicitação"e "Liberar para Aceite" como concluída (verde)
+        $("#panelGerandoSolicitacao").toggleClass("panel-warning", false);//false remove a classe
+        $("#panelGerandoSolicitacao").toggleClass("panel-primary", true);//true adiciona a classe
+        $("#panelLiberarAceite").toggleClass("panel-success", false);
+        $("#panelLiberarAceite").toggleClass("panel-primary", true);
+        //fecha o painel "Liberar para Aceite" e abre o "Aguardando aceite"
+        $("#collapseLiberarAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoAceite").toggleClass("collapse", false);
+        //deixa a etapa "Aguardando aceite" amarela (aguardando realização)
+        $("#panelAguardandoAceite").toggleClass("panel-default", false);
+        $("#panelAguardandoAceite").toggleClass("panel-warning", true);
+        //bloqueia o clique da etapa
+        $("#etapaLiberarAceite").attr('data-toggle', $("#etapaLiberarAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoGerNegocio").attr('data-toggle', $("#etapaAguardandoGerNegocio").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoCadCrono").attr('data-toggle', $("#etapaAguardandoCadCrono").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaOrcamentoRealizado").attr('data-toggle', $("#etapaOrcamentoRealizado").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+    }
+    //status Geração Negócio
+    if ($("[id$=selStatus]").val() == "GN") {
+        //deixa a etapa "Gerando Solicitação", "Liberar para Aceite" e "Aguardando aceite" como concluída (verde)
+        $("#panelGerandoSolicitacao").toggleClass("panel-warning", false);//false remove a classe
+        $("#panelGerandoSolicitacao").toggleClass("panel-primary", true);//true adiciona a classe
+        $("#panelLiberarAceite").toggleClass("panel-success", false);
+        $("#panelLiberarAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoAceite").toggleClass("panel-default", false);
+        $("#panelAguardandoAceite").toggleClass("panel-primary", true);
+        //fecha o painel "Liberar para Aceite", "Aguardando Aceite" e abre o "Aguardando geração negócio"
+        $("#collapseLiberarAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoGerNegocio").toggleClass("collapse", false);
+        //deixa a etapa "Aguardando geração negócio" amarela (aguardando realização)
+        $("#panelAguardandoGerNegocio").toggleClass("panel-default", false);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-warning", true);
+        //bloqueia o clique da etapa
+        $("#etapaLiberarAceite").attr('data-toggle', $("#etapaLiberarAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');        
+        $("#etapaAguardandoCadCrono").attr('data-toggle', $("#etapaAguardandoCadCrono").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoAceite").attr('data-toggle', $("#etapaAguardandoAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaOrcamentoRealizado").attr('data-toggle', $("#etapaOrcamentoRealizado").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        //faz a sugestão de empresas para geração do GNF
+        sugereEmpresaNegocio();
+        //se já tem negócio gerado mostra só o botão para trocar de etapa e aviso de negócio já gerado
+        if ($("[id$=txtNegocio]").val() != "") {
+            $(".gerarNegocio").hide();
+            $("#divOrc88").hide();
+            $("#divOrc302").hide();
+            $("#divOrc332").hide();
+            $("#divOrc380").hide();
+            $("#divOrc605").hide();
+            $("#divOrc635").hide();
+            $(".tipoGeracaoNegocio").hide();
+            $(".negManual").hide();
+            $(".negocioGerado").show();
+            $("#lblNegocioGerado").text('Negócio já gerado para esta solicitação - Nº Negócio: ' + $("[id$=txtNegocio]").val());
+            $("[id$=btnGerarNegocio]").val('Avançar Etapa');           
+        } else {
+            $(".tipoGeracaoNegocio").show();
+            $(".negocioGerado").hide();
+            $(".negManual").hide();
+            if ($("[id$=chkIndObraManual]").is(':checked')) {
+                $("#divObraNaoCadNeg").show();
+                $("#divObraNaoCadNegCid").show();
+            } else {
+                $("#divObraNaoCadNeg").hide();
+                $("#divObraNaoCadNegCid").hide();
+            }                                   
+        }
+    }
+    //status Cadastro no cronograma
+    if ($("[id$=selStatus]").val() == "CC")
+    {
+        //deixa a etapa "Gerando Solicitação", "Liberar para Aceite", "Aguardando aceite" e "Aguardando Geração Negócio"como concluída (verde)
+        $("#panelGerandoSolicitacao").toggleClass("panel-warning", false);//false remove a classe
+        $("#panelGerandoSolicitacao").toggleClass("panel-primary", true);//true adiciona a classe
+        $("#panelLiberarAceite").toggleClass("panel-success", false);
+        $("#panelLiberarAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoAceite").toggleClass("panel-default", false);
+        $("#panelAguardandoAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-default", false);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-primary", true);
+        //fecha o painel "Liberar para Aceite", "Aguardando Aceite", "Aguardando geração negócio" e abre o "Aguardando cadastro cronograma"
+        $("#collapseLiberarAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoGerNegocio").toggleClass("collapse", true);
+        $("#collapseAguardandoCadCrono").toggleClass("collapse", false);
+        //deixa a etapa "Aguardando cadastro cronograma" amarela (aguardando realização)
+        $("#panelAguardandoCadCrono").toggleClass("panel-default", false);
+        $("#panelAguardandoCadCrono").toggleClass("panel-warning", true);
+        //bloqueia o clique da etapa
+        $("#etapaLiberarAceite").attr('data-toggle', $("#etapaLiberarAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoAceite").attr('data-toggle', $("#etapaAguardandoAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoGerNegocio").attr('data-toggle', $("#etapaAguardandoGerNegocio").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaOrcamentoRealizado").attr('data-toggle', $("#etapaOrcamentoRealizado").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+    }
+    //status Liberado para orçar
+    if ($("[id$=selStatus]").val() == "LO")
+    {
+        //deixa a etapa "Gerando Solicitação", "Liberar para Aceite", "Aguardando aceite" , "Aguardando Geração Negócio" e "Cad. cronograma "como concluída (verde)
+        $("#panelGerandoSolicitacao").toggleClass("panel-warning", false);//false remove a classe
+        $("#panelGerandoSolicitacao").toggleClass("panel-primary", true);//true adiciona a classe
+        $("#panelLiberarAceite").toggleClass("panel-success", false);
+        $("#panelLiberarAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoAceite").toggleClass("panel-default", false);
+        $("#panelAguardandoAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-default", false);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-primary", true);
+        $("#panelAguardandoCadCrono").toggleClass("panel-default", false);
+        $("#panelAguardandoCadCrono").toggleClass("panel-primary", true);
+        //fecha os paineis já realizados e abre o próximo
+        $("#collapseLiberarAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoGerNegocio").toggleClass("collapse", true);
+        $("#collapseAguardandoCadCrono").toggleClass("collapse", true);
+        $("#collapseAguardandoAceiteOrc").toggleClass("collapse", true);
+        $("#collapseOrcamentoRealizado").toggleClass("collapse", false);//abre
+        //deixa a etapa "Liberado para orçar" amarela (aguardando realização)
+        $("#panelLiberadoOrcar").toggleClass("panel-default", false);
+        $("#panelLiberadoOrcar").toggleClass("panel-warning", true);
+        //bloqueia o clique da etapa
+        $("#etapaLiberarAceite").attr('data-toggle', $("#etapaLiberarAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoAceite").attr('data-toggle', $("#etapaAguardandoAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoGerNegocio").attr('data-toggle', $("#etapaAguardandoGerNegocio").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoCadCrono").attr('data-toggle', $("#etapaAguardandoCadCrono").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardAcOrcamento").attr('data-toggle', $("#etapaAguardAcOrcamento").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+    }
+    //status Orçamento Realizado
+    if ($("[id$=selStatus]").val() == "OR") {
+        //deixa as etapas concluídas em verde
+        $("#panelGerandoSolicitacao").toggleClass("panel-warning", false);//false remove a classe
+        $("#panelGerandoSolicitacao").toggleClass("panel-primary", true);//true adiciona a classe
+        $("#panelLiberarAceite").toggleClass("panel-success", false);
+        $("#panelLiberarAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoAceite").toggleClass("panel-default", false);
+        $("#panelAguardandoAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-default", false);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-primary", true);
+        $("#panelAguardandoCadCrono").toggleClass("panel-default", false);
+        $("#panelAguardandoCadCrono").toggleClass("panel-primary", true);
+        $("#panelLiberadoOrcar").toggleClass("panel-default", false);
+        $("#panelLiberadoOrcar").toggleClass("panel-primary", true);
+        $("#panelOrcamentoRealizado").toggleClass("panel-default", false);
+        $("#panelOrcamentoRealizado").toggleClass("panel-primary", true);
+        //fecha os paineis já realizados e abre o próximo
+        $("#collapseLiberarAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoGerNegocio").toggleClass("collapse", true);
+        $("#collapseAguardandoCadCrono").toggleClass("collapse", true);
+        $("#collapseOrcamentoRealizado").toggleClass("collapse", true);
+        $("#collapseAguardandoAceiteOrc").toggleClass("collapse", false);//abre
+        //deixa a etapa "Aguardando Aceite do orçamento" amarela (aguardando realização)
+        $("#panelAguardandoAceiteOrc").toggleClass("panel-default", false);
+        $("#panelAguardandoAceiteOrc").toggleClass("panel-warning", true);
+        //bloqueia o clique da etapa
+        $("#etapaLiberarAceite").attr('data-toggle', $("#etapaLiberarAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoAceite").attr('data-toggle', $("#etapaAguardandoAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoGerNegocio").attr('data-toggle', $("#etapaAguardandoGerNegocio").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoCadCrono").attr('data-toggle', $("#etapaAguardandoCadCrono").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaOrcamentoRealizado").attr('data-toggle', $("#etapaOrcamentoRealizado").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+    }
+    //status Orçamento Aceito
+    if ($("[id$=selStatus]").val() == "OA") {
+        //deixa as etapas concluídas em verde
+        $("#panelGerandoSolicitacao").toggleClass("panel-warning", false);//false remove a classe
+        $("#panelGerandoSolicitacao").toggleClass("panel-primary", true);//true adiciona a classe
+        $("#panelLiberarAceite").toggleClass("panel-success", false);
+        $("#panelLiberarAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoAceite").toggleClass("panel-default", false);
+        $("#panelAguardandoAceite").toggleClass("panel-primary", true);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-default", false);
+        $("#panelAguardandoGerNegocio").toggleClass("panel-primary", true);
+        $("#panelAguardandoCadCrono").toggleClass("panel-default", false);
+        $("#panelAguardandoCadCrono").toggleClass("panel-primary", true);
+        $("#panelLiberadoOrcar").toggleClass("panel-default", false);
+        $("#panelLiberadoOrcar").toggleClass("panel-primary", true);
+        $("#panelOrcamentoRealizado").toggleClass("panel-default", false);
+        $("#panelOrcamentoRealizado").toggleClass("panel-primary", true);
+        $("#panelAguardandoAceiteOrc").toggleClass("panel-default", false);
+        $("#panelAguardandoAceiteOrc").toggleClass("panel-primary", true);
+        //fecha todos paineis já realizados
+        $("#collapseLiberarAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoAceite").toggleClass("collapse", true);
+        $("#collapseAguardandoGerNegocio").toggleClass("collapse", true);
+        $("#collapseAguardandoCadCrono").toggleClass("collapse", true);
+        $("#collapseOrcamentoRealizado").toggleClass("collapse", true);
+        $("#collapseAguardandoAceiteOrc").toggleClass("collapse", true);
+        //deixa a etapa "Aguardando Aceite do orçamento" amarela (aguardando realização)
+        //$("#panelAguardandoAceiteOrc").toggleClass("panel-default", false);
+        //$("#panelAguardandoAceiteOrc").toggleClass("panel-warning", true);
+        //bloqueia o clique da etapa
+        $("#etapaLiberarAceite").attr('data-toggle', $("#etapaLiberarAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoAceite").attr('data-toggle', $("#etapaAguardandoAceite").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoGerNegocio").attr('data-toggle', $("#etapaAguardandoGerNegocio").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardandoCadCrono").attr('data-toggle', $("#etapaAguardandoCadCrono").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaOrcamentoRealizado").attr('data-toggle', $("#etapaOrcamentoRealizado").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+        $("#etapaAguardAcOrcamento").attr('data-toggle', $("#etapaAguardAcOrcamento").attr('data-toggle') == 'enabled' ? 'disabled' : 'enabled');
+    }
+}
+function atualizaLabelConclusao() {
+    if($("[id$=dthrGerandoSolic]").val() != "") {
+        $("[id$=lblConclusaoGerandoSolicitacao]").text("Conclusão: " + $("[id$=dthrGerandoSolic]").val());        
+    } else {
+        $("[id$=lblConclusaoGerandoSolicitacao]").hide();        
+    }
+    if ($("[id$=dthrLiberarAceite]").val() != "") {
+        $("[id$=lblConclusaoLiberarAceite]").text("Conclusão: " + $("[id$=dthrLiberarAceite]").val());
+    } else {
+        $("[id$=lblConclusaoLiberarAceite]").hide();
+    }
+    if ($("[id$=dthrAguardandoAceite]").val() != "") {
+        $("[id$=lblConclusaoAguardandoAceite]").text("Conclusão: " + $("[id$=dthrAguardandoAceite]").val());
+    } else {
+        $("[id$=lblConclusaoAguardandoAceite]").hide();
+    }
+    if ($("[id$=dthrAguardandoGerNegocio]").val() != "") {
+        $("[id$=lblConclusaoAguardandoGerNegocio]").text("Conclusão: " + $("[id$=dthrAguardandoGerNegocio]").val());
+    } else {
+        $("[id$=lblConclusaoAguardandoGerNegocio]").hide();
+    }
+    if ($("[id$=dthrAguardandoCadCronograma]").val() != "") {
+        $("[id$=lblConclusaoAguardandoCadCrono]").text("Conclusão: " + $("[id$=dthrAguardandoCadCronograma]").val());
+    } else {
+        $("[id$=lblConclusaoAguardandoCadCrono]").hide();
+    }
+    if ($("[id$=dthrAguardandoLibOrcar]").val() != "") {
+        $("[id$=lblConclusaoLiberadoOrcar]").text("Conclusão: " + $("[id$=dthrAguardandoLibOrcar]").val());
+    } else {
+        $("[id$=lblConclusaoLiberadoOrcar]").hide();
+    }
+    if ($("[id$=dthrAguardandoOrcRealizado]").val() != "") {
+        $("[id$=lblConclusaoOrcamentoRealizado]").text("Conclusão: " + $("[id$=dthrAguardandoOrcRealizado]").val());
+    } else {
+        $("[id$=lblConclusaoOrcamentoRealizado]").hide();        
+    }
+    if ($("[id$=dthrAguardandoAceiteOrc]").val() != "") {
+        $("[id$=lblConclusaoAceiteOrcamento]").text("Conclusão: " + $("[id$=dthrAguardandoAceiteOrc]").val());
+    } else {
+        $("[id$=lblConclusaoAceiteOrcamento]").hide();
+    }
+    if ($("[id$=dthrRevisao]").val() != "") {
+        $("[id$=lblConclusaoRevisao]").text("Conclusão: " + $("[id$=dthrRevisao]").val());
+    } else {
+        $("[id$=lblConclusaoRevisao]").hide();
+    }
+}
+//tratamento do radio tipo geração negócio
+$(document).on('change', "[name$='rbIndNegGeradoInformado']", function () {
+    if ($(this).val() == "I") {        
+        $(".negManual").show();
+        $(".gerarNegocio").hide();
+        $("#divOrc88").hide();
+        $("#divOrc302").hide();
+        $("#divOrc332").hide();
+        $("#divOrc380").hide();
+        $("#divOrc605").hide();
+        $("#divOrc635").hide();                
+        $(".negocioGerado").hide();        
+        $("[id$=btnGerarNegocio]").val('Gravar Negócio');
+    } else {       
+        $(".negManual").hide();
+        $("[id$=txtNumNegInformado]").val("");
+        $(".gerarNegocio").show();
+        sugereEmpresaNegocio();
+        $("[id$=btnGerarNegocio]").val('Gerar Negócio');
+    }
+});
+function sugereEmpresaNegocio() {
+    if ($("[id$=chk_esc_09]").is(':checked') || $("[id$=chk_Sist_Aeracao]").is(':checked') || $("[id$=chk_EspalhadorGraos]").is(':checked') || $("[id$=chk_RenovadorAr]").is(':checked') || $("[id$=chk_TampasAeracao]").is(':checked')) {
+        $("[id$=chkEmprNeg_88]").prop("checked", true);
+        $("[id$=lblChkEmprNeg_88]").addClass("label-check-azul");        
+        $("#divOrc88").show();
+    } else {
+        $("#divOrc88").hide();
+        $("[id$=lblChkEmprNeg_88]").addClass("label-check-preto");
+    }
+    if ($("[id$=chk_esc_01]").is(':checked') || $("[id$=chk_esc_02]").is(':checked') || $("[id$=chk_esc_03]").is(':checked') || $("[id$=chk_esc_20]").is(':checked')) {
+        $("[id$=chkEmprNeg_302]").prop("checked", true);
+        $("[id$=lblChkEmprNeg_302]").addClass("label-check-azul");
+        $("#divOrc302").show();
+    } else {
+        $("#divOrc302").hide();
+        $("[id$=lblChkEmprNeg_302]").addClass("label-check-preto");
+    } 
+    if ($("[id$=chk_esc_06]").is(':checked') || $("[id$=chk_esc_07]").is(':checked') || $("[id$=chk_info_esc_08]").is(':checked') || $("[id$=chk_esc_16_1]").is(':checked') ||
+        $("[id$=chk_esc_16_2]").is(':checked') || $("[id$=chk_esc_16_3]").is(':checked') || $("[id$=chk_esc_16_4]").is(':checked') || $("[id$=chk_esc_Projeto]").is(':checked') ||
+        $("[id$=chk_esc_MaoObra]").is(':checked') || $("[id$=chk_esc_19]").is(':checked')) {
+        $("[id$=chkEmprNeg_332]").prop("checked", true);
+        $("[id$=lblChkEmprNeg_332]").addClass("label-check-azul");
+        $("#divOrc332").show();
+    } else {
+        $("#divOrc332").hide();
+        $("[id$=lblChkEmprNeg_332]").addClass("label-check-preto");
+    }
+    if ($("[id$=chk_esc_05]").is(':checked')) {
+        $("[id$=chkEmprNeg_380]").prop("checked", true);
+        $("[id$=lblChkEmprNeg_380]").addClass("label-check-azul");
+        $("#divOrc380").show();        
+    } else {        
+        $("[id$=lblChkEmprNeg_380]").addClass("label-check-preto");
+        $("#divOrc380").hide();        
+    }
+    if ($("[id$=chk_esc_04]").is(':checked')) {
+        $("[id$=chkEmprNeg_605]").prop("checked", true);
+        $("[id$=lblChkEmprNeg_605]").addClass("label-check-azul");
+        $("#divOrc605").show();
+    } else {
+        $("#divOrc605").hide();
+        $("[id$=lblChkEmprNeg_605]").addClass("label-check-preto");
+    }
+    if ($("[id$=chk_esc_11]").is(':checked')) {
+        $("[id$=chkEmprNeg_635]").prop("checked", true);
+        $("[id$=lblChkEmprNeg_635]").addClass("label-check-azul");
+        $("#divOrc635").show();
+    } else {
+        $("#divOrc635").hide();
+        $("[id$=lblChkEmprNeg_635]").addClass("label-check-preto");
+    }
+    
+}
+
+//Tratamento da mundança do check div 88
+$(document).on('change', "[name$='chkEmprNeg_88']", function () {
+    if ($(this).is(":checked")) {
+        $("#divOrc88").show();
+    } else {
+        $("#divOrc88").hide();
+    }
+});
+//Tratamento da mundança do check div 302
+$(document).on('change', "[name$='chkEmprNeg_302']", function () {
+    if ($(this).is(":checked")) {
+        $("#divOrc302").show();
+    } else {
+        $("#divOrc302").hide();
+    }
+});
+//Tratamento da mundança do check div 332
+$(document).on('change', "[name$='chkEmprNeg_332']", function () {
+    if ($(this).is(":checked")) {
+        $("#divOrc332").show();
+    } else {
+        $("#divOrc332").hide();
+    }
+});
+//Tratamento da mundança do check div 380
+$(document).on('change', "[name$='chkEmprNeg_380']", function () {
+    if ($(this).is(":checked")) {
+        $("#divOrc380").show();
+    } else {
+        $("#divOrc380").hide();
+    }
+});
+//Tratamento da mundança do check div 605
+$(document).on('change', "[name$='chkEmprNeg_605']", function () {
+    if ($(this).is(":checked")) {
+        $("#divOrc605").show();
+    } else {
+        $("#divOrc605").hide();
+    }
+});
+//Tratamento da mundança do check div 635
+$(document).on('change', "[name$='chkEmprNeg_635']", function () {
+    if ($(this).is(":checked")) {
+        $("#divOrc635").show();
+    } else {
+        $("#divOrc635").hide();
+    }
+});

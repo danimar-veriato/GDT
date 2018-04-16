@@ -1,0 +1,7 @@
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\bin\Release\GDTLibrary.dll
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\bin\Release\GDTLibrary.pdb
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\bin\Release\DOMDB.dll
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\bin\Release\DOMACE.dll
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\obj\Release\GDTLibrary.dll
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\obj\Release\GDTLibrary.pdb
+C:\Users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\obj\Release\GDTLibrary.csprojResolveAssemblyReference.cache

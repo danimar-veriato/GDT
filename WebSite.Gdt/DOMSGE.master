@@ -1,0 +1,454 @@
+﻿    <%@ Master Language="C#" AutoEventWireup="true" CodeFile="DOMSGE.master.cs" Inherits="DOMSGE" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Src="~/ACEN0017.ascx" TagPrefix="uc1" TagName="ACEN0017" %>
+<%@ Register Src="~/ACEN0010.ascx" TagPrefix="uc1" TagName="ACEN0010" %>
+<%@ Register Src="~/ACEN0009.ascx" TagPrefix="uc1" TagName="ACEN0009" %>
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOMSGE | www.domsge.com.br</title>
+
+    <!-- Gritter -->
+    <link href="template/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+
+    <%--    MENU NOVO CSS--%>
+    <link href="template/MultiLevelPushMenu/css/normalize.css" rel="stylesheet" />
+    <link href="template/MultiLevelPushMenu/css/icons.css" rel="stylesheet" />
+    <link href="template/MultiLevelPushMenu/css/component.css" rel="stylesheet" />
+
+
+    <link href="template/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="template/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="template/css/animate.css" rel="stylesheet" />
+    <link href="template/css/style.css" rel="stylesheet" />
+
+    <!-- Toastr style -->
+    <link href="template/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <link href="template/js/plugins/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+
+    <%--    MENU NOVO JS--%>
+    <script src="../../template/MultiLevelPushMenu/js/modernizr.custom.js"></script>
+    <script src="../../template/MultiLevelPushMenu/js/classie.js"></script>
+    <script src="../../template/MultiLevelPushMenu/js/mlpushmenu.js"></script>
+
+    <script src="../../template/js/jquery-1.10.2.js"></script>
+    <script src="../../template/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../../template/js/bootstrap.min.js"></script>
+    <script src="../../template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../../template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="../../template/dominio/js/inspinia.js"></script>
+    <script src="../../template/js/plugins/pace/pace.min.js"></script>
+    <!-- GITTER -->
+    <script src="../../template/js/plugins/gritter/jquery.gritter.min.js"></script>
+
+    <!-- Toastr script -->
+    <link href="template/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <script src="../../template/js/plugins/toastr/toastr.min.js"></script>
+
+    <!-- Boostrap Select -->
+    <script src="../../template/js/plugins/bootstrap-select/bootstrap-select.js"></script>
+
+    <!-- Sweet Alert -->
+    <link href="template/dominio/plugins/sweetalert-master/dist/sweetalert.css" rel="stylesheet" />
+    <script src="../../template/dominio/plugins/sweetalert-master/dist/sweetalert.min.js"></script>
+
+
+    <%--CUSTOMIZAÇÕES DOMÍNIO--%>
+    <link href="template/dominio/css/dominio-custom.css" rel="stylesheet" />
+    <script src="../../template/dominio/js/dominio.js"></script>
+
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        #toast-container
+        {
+            top: 60px;
+        }
+
+            #toast-container > .toast-info:before
+            {
+                content: "\f110";
+                /*animation: fa-spin 2s infinite linear;*/
+            }
+
+        .toast-info
+        {
+            background-image: none !important;
+        }
+
+        nav .open > a, .nav .open
+        {
+            background: #fff;
+        }
+
+            nav .open > a, .nav .open > a
+            {
+                color: #999c9e !important;
+            }
+
+        @media (max-width: 1000px)
+        {
+            .hide-sm-md
+            {
+                display: none !important;
+            }
+        }
+
+        .logo-cliente
+        {
+            margin-top: -14px;
+            background-color: rgb(53, 78, 103);
+            height: 60px;
+            position: absolute;
+            padding-top: 20px;
+            padding-right: 15px;
+            margin-right: -25px;
+            padding-left: 17px;
+            width: 100%;
+        }
+
+        .btn-menu
+        {
+            color: #fff !important;
+        }
+
+            .btn-menu:hover
+            {
+                color: #1ab394 !important;
+            }
+
+        .li-logo-cli
+        {
+            top: -21px;
+            width: 125px;
+        }
+    </style>
+</head>
+<body class="pace-done fixed-nav mini-navbar">
+
+    <form id="form1" runat="server" class="form">
+
+        <%--Modal para exibir erros--%>
+        <div id="modal-error-sge" class="modal fade" aria-hidden="true">
+            <div class="modal-dialog" style="width: 50%; padding-top: 40px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title text-center">
+                            <label id="lblTituloErro"></label>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <div id="lblMsgErro"></div>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--Modal para exibir erros--%>
+
+        <div id="wrapper" class="activeTootip">
+
+            <div class="container-mp">
+
+                <%-- TOP NAV BAR--%>
+                <div class="row border-bottom">
+                    <nav class="navbar navbar-fixed-top  " role="navigation" style="margin-bottom: 0; background: #213a53;">
+                        <div class="navbar-header" style="height: 60px;">
+                            <ul class="nav navbar-top-links" style="padding-left: 15px;">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle count-info btn-menu" id="trigger" onclick="ancora();" href="#wrapper">
+                                        <i class="fa fa-bars" style="font-size: 1.5em;"></i>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle count-info hide-sm-md btn-menu" id="A2" href="../../ACE/Versao01/ACEN60600.aspx" style="margin-left: 5px;">
+                                        <i class="fa fa-dashboard" style="font-size: 1.5em;"></i>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle count-info hide-sm-md btn-menu" style="margin-left: 5px;" runat="server" target="_blank" id="linkWiki" visible="false">
+                                        <i class="fa fa-life-ring" style="font-size: 1.5em;"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <%--                            <a class="navbar-minimalize custom-top-buttom minimalize-styl-2 btn btn-primary" ><i class="fa fa-bars"></i></a>--%>
+                            <%--                            <a class="navbar-minimalize custom-top-buttom minimalize-styl-2 btn btn-primary hide-sm-md" id="A2" href="../../ACE/Versao01/ACEN6060.aspx" style="margin-left: 5px;"><i class="fa fa-dashboard"></i></a>--%>
+                            <%--<a class="navbar-minimalize custom-top-buttom minimalize-styl-2 btn btn-primary hide-sm-md" style="margin-left: 5px;" runat="server" target="_blank" id="linkWiki" visible="false"><i class="fa fa-life-ring"></i></a>--%>
+                        </div>
+                        <%-- Menu aqui!--%>
+
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li class="hide-sm-md">
+                                <i class="fa fa-circle" style="font-size: 6px;" runat="server" id="iconAlert"></i>
+                            </li>
+                            <li class="hide-sm-md">
+                                <a class="dropdown-toggle count-info text-white hide-sm-md"
+                                    style="font-weight: normal; font-size: 13px;"
+                                    href="#"
+                                    data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <asp:Label ID="lblUsuarioLogado" runat="server"></asp:Label>
+                                </a>
+                                <ul class="dropdown-menu dropdown-messages hide-sm-md">
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <asp:Label ID="lblDbName" runat="server"></asp:Label>
+                                            <br />
+                                            Programa: <strong>
+                                                <asp:Label Text="" runat="server" ID="lblPrograma" /></strong>
+                                            <br />
+                                            Transação: <strong>
+                                                <asp:Label ID="lblTransacao" Text="" runat="server" /></strong>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="hide-sm-md">
+                                <span class="m-r-sm text-white hide-sm-md">
+                                    <asp:Label ID="lblEmp" runat="server"></asp:Label>
+                                </span>
+                            </li>
+                            <li class="dropdown troca-empr hide-sm-md">
+                                <a class="dropdown-toggle count-info" href="#" aria-expanded="false">[Trocar]
+                                </a>
+                                <ul class="dropdown-menu dropdown-messages">
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <asp:DropDownList
+                                                class="form-control selectpicker"
+                                                ID="selEmpresa"
+                                                runat="server" AutoPostBack="true"
+                                                OnSelectedIndexChanged="selEmpresa_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="li-logo-cli hide-sm-md">
+                                <div class="logo-cliente hide-sm-md">
+                                    <%--<asp:LinkButton ID="btnEmp" runat="server" OnClick="btnEmp_OnClick">[Trocar]</asp:LinkButton>--%>
+
+                                    <span class="hide-sm-md">
+                                        <asp:Image runat="server" CssClass="img-responsive" ID="LogEmprLogada" />
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="text-white">
+                                <a id="showtoast"><i class="fa fa-sign-out"></i>Sair</a>
+                                <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" Visible="false"><i class="fa fa-sign-out"></i>Sair</asp:LinkButton>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="mp-pusher" id="mp-pusher">
+
+                    <!-- mp-menu -->
+                    <uc1:ACEN0017 runat="server" ID="ACEN0017" />
+                    <!-- /mp-menu -->
+
+
+                    <div id="page-wrapper" class="gray-bg">
+
+                        <div class="scroller">
+                            <div class="scroller-inner">
+                                <asp:ContentPlaceHolder ID="phConteudo" runat="server">
+                                </asp:ContentPlaceHolder>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <input type="hidden" id="logouCancel" value="" />
+    </form>
+
+    <style>
+        #toast-container.toast-top-center > .toast-error
+        {
+            width: 100%;
+            margin: auto;
+        }
+    </style>
+    
+    <script>
+        var browser;
+        var IEversion = detectIE();
+
+        if (IEversion !== false) {
+            
+            browser = 'Internet Explorer';
+
+            if (IEversion == '8' || IEversion == '7') {
+                document.write("<div class='toast-top-center' id='toast-container' role='alert' aria-live='polite'><div class='toast toast-error' style='width: 100%;'><button class='toast-close-button' role='button' type='button'>×</button><div class='toast-message'>ATENÇÃO! O Browser que você está utilizando NÃO é homologado. Algumas funções podem não funcionar corretamente.</div></div></div>");
+            } else {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": false,
+                    "preventDuplicates": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "showDuration": "99999999",
+                    "hideDuration": "99999999",
+                    "timeOut": "99999999",
+                    "extendedTimeOut": "99999999",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                toastr.error("ATENÇÃO! O Browser que você está utilizando NÃO é homologado. Algumas funções podem não funcionar corretamente.");
+            }
+
+        } else if (!!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0) {
+            browser = 'Opera';
+        } else if (typeof InstallTrigger !== 'undefined') {
+            browser = 'Mozilla Firefox';
+        } else if (!!window.chrome) {
+            browser = 'Google Chrome';
+        } else if (Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0) {
+            browser = 'Safari';
+        }
+
+        var userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.search(/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i) != -1) {
+
+            browser = 'Mobile: ' + userAgent;
+        }
+
+        var obj = {};
+        obj.browser = browser;
+
+        var jsonData = JSON.stringify(obj);
+
+        //$.ajax({
+        //    url: '../../dataCollect.ashx',
+        //    type: 'POST',
+        //    data: jsonData,
+        //    success: function (data) {
+        //        console.log(data);
+        //    },
+        //    error: function (errorText) {
+        //        console.log(errorText);
+        //    }
+        //});
+
+
+
+        function detectIE() {
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf('MSIE ');
+            if (msie > 0) {
+                return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+            }
+            var trident = ua.indexOf('Trident/');
+            if (trident > 0) {
+                var rv = ua.indexOf('rv:');
+                return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+            }
+            var edge = ua.indexOf('Edge/');
+            if (edge > 0) {
+                return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+            }
+            return false;
+        }
+
+
+
+        $(function () {
+
+            $('.selectpicker').selectpicker({
+                style: 'form-control'
+            });
+
+            $('#showtoast').click(function () {
+
+                $('#logouCancel').val("");
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut",
+                    onclick: null
+                };
+
+                toastr.options.onclick = function () {
+                    $('#logouCancel').val("canceled");
+                };
+
+                toastr.options.onHidden = function () {
+                    if ($('#logouCancel').val() != "canceled") {
+                        window.location.href = "../../ACE/Versao01/ACE0003N.aspx?sessioninvalidate=y";
+                    }
+                }
+
+                toastr.info("Efetuando logoff... <strong>cancelar</strong>", "Atenção");
+
+
+            });
+        })
+
+        $('li.dropdown.troca-empr a').on('click', function (event) {
+            $('li.dropdown.troca-empr').toggleClass("open");
+        });
+
+        $('body').on('click', function (e) {
+            if (!$('li.dropdown.troca-empr').is(e.target) && $('li.dropdown.troca-empr').has(e.target).length === 0 && $('.open').has(e.target).length === 0) {
+                $('li.dropdown.troca-empr').removeClass('open');
+            }
+        });
+
+        //Menu lateral esquerdo domsge
+        new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'));
+
+        //Para que ao clicar no botão do menu, rolar a página para o topo
+        function ancora() {
+            window.location = "#";
+        }
+
+        // para funcionamento dos tooltips
+        $('.activeTootip').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+
+        //Para funcionamento do popover, ao clicar fora dele, feche sozinho
+        $('body').on('click', function (e) {
+            $('[data-toggle="popover"]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover('hide');
+                }
+            });
+        });
+
+        
+
+    </script>
+</body>
+</html>

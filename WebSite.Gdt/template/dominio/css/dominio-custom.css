@@ -1,0 +1,270 @@
+﻿
+/* 
+    CSS Custom domínio.
+
+    No arquivo style.css do template, atentar-se a chamada do fonts google, para o protocolo HTTPS, pois padrão do template é http
+    Gerando problema em clientes que utilizem protocólo HTTPS.
+
+    -- 
+    -- Objetivo: Manter o padrão e customizações no css da domínio
+    --
+    --
+    -- Pessoa          Data        Comentário
+    -- -------------   ----------  ----------------------------------
+    -- Paulo           00/00/0000  Criação  
+    -- Paulo           22/07/2015  Adicionado padrão de responsividade para divs de formulários aparecerem em full width em mobile.  
+    --
+*/
+
+.note-editor .open > .dropdown-menu
+{
+    display: block;
+    right: auto;
+}
+
+.note-editor.fullscreen
+{
+    z-index: 2035 !important;
+}
+
+.note-editor
+{
+    min-height: inherit;
+}
+
+.loading
+{
+    z-index: 5000000;
+}
+
+.text-white
+{
+    color: #fff !important;
+}
+
+.btn-font-white
+{
+    color: white !important;
+}
+
+.btn-sge
+{
+    color: gray;
+}
+
+    .btn-sge:hover
+    {
+        color: #1ab394;
+    }
+
+.form-control.input-sm
+{
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+input[type="checkbox"]
+{
+    margin-left: 10px;
+    margin-right: 1px;
+}
+
+.radio_button_horizontal input[type="radio"]
+{
+    margin-left: 10px;
+    margin-right: 1px;
+}
+
+.btn
+{
+    margin-bottom: 5px !important;
+}
+
+.table-responsive
+{
+    overflow-x: hidden;
+}
+
+@media (min-width: 400px) and (max-width: 600px)
+{
+    .btn-responsible-block, .btn-remove, .btn-add
+    {
+        width: 100%;
+    }
+
+    .btn-remove, .btn-add
+    {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .table-responsive
+    {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 992px)
+{
+    .btn-responsible-block, ul.nav.nav-tabs li
+    {
+        width: 100%;
+    }
+
+    .row
+    {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6,
+    .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12
+    {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
+@media (min-width: 1199px)
+{
+    .img-responsive-dom
+    {
+        max-height: 70px !important;
+    }
+}
+
+@media (min-width: 800px)
+{
+    .btn-remove
+    {
+        margin-top: 90%;
+    }
+}
+
+#gritter-notice-wrapper
+{
+    top: 65px;
+}
+
+.gritter-item
+{
+    font-size: 13px;
+}
+
+.modal-error-sge
+{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-left: -150px;
+}
+
+.img-custom
+{
+    width: 32px !important;
+    height: 32px !important;
+    margin: 5px;
+    border-radius: initial;
+}
+
+.spinner-loading
+{
+    position: absolute;
+    z-index: 99999999;
+    left: 50%;
+    top: -moz-calc(45vh - 25px);
+    top: -webkit-calc(45vh - 25px);
+    top: calc(45vh - 25px);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: #FFF;
+}
+
+.sk-spinner-wave div
+{
+    background-color: #FFF;
+}
+
+/* DATATABLES */
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled
+{
+    background: none;
+}
+
+table.dataTable thead .sorting_asc:after
+{
+    float: none;
+}
+
+table.dataTable thead .sorting_desc:after
+{
+    content: none;
+    float: none;
+}
+
+table.dataTable thead .sorting:after
+{
+    content: none;
+    float: none;
+    color: none;
+}
+
+body
+{
+    padding-right: inherit !important;
+}
+
+    body.mini-navbar #page-wrapper
+    {
+        margin: 0 0 0 0;
+    }
+
+    body.mini-navbar .navbar-static-side
+    {
+        display: none;
+    }
+
+.body-small.mini-navbar .navbar-static-side
+{
+    display: none;
+}
+
+#page-wrapper
+{
+    margin: 0 0 0 0px;
+}
+
+.input-group .form-control
+{
+    position: initial;
+}
+
+.datepicker-dropdown
+{
+    z-index: 2229 !important;
+}
+
+@media (max-width: 991px)
+{
+    #page-wrapper
+    {
+        padding: 0;
+    }
+
+    .wrapper-content
+    {
+        padding: 0px 10px 40px;
+        margin: 0 -25px;
+    }
+}
+
+.agile-list li.progress-element {
+  border-left: 3px solid #23c6c8;
+}

@@ -1,0 +1,109 @@
+﻿/* Arquivo concentrador de códigos JS/Jquery do cabeçalho da solicitação de orçamentos
+*
+*  Histórico de Alterações
+*  Nº Alt.  Data        Pessoa            Chamado  Descrição
+*  ------- ----------- ------------------ -------- -----------------------------------------------------------------------------------------------
+*  000     20/06/2017  Adriano Tomczak    #10649   -Criação do arquivo. 
+*  001
+*  002
+*
+*/
+
+$(document).on('change', '#chkIndObraManual', function () {
+    if ($(this).is(":checked")) {
+        $(".obraNaoCadastrada").show();
+        $(".obraCadastrada").hide();        
+        $('.select2Obra').select2('data', null);        
+    }
+    else {
+        $(".obraNaoCadastrada").hide();
+        $(".obraCadastrada").show();
+        $("[id$=txtNomeObraManual]").val("");
+        $('.select2ObraManual').select2('data', null);        
+    }
+});
+
+function gerenciaIndObraManual() {
+    if ($("[id$=chkIndObraManual]").is(':checked')) {
+        $(".obraNaoCadastrada").show();
+        $(".obraCadastrada").hide();       
+    } else {
+        $(".obraNaoCadastrada").hide();
+        $(".obraCadastrada").show();        
+    }
+}
+
+$(document).on('change', "[name$='chkOutraNecesEscopo']", function () {
+    if ($(this).is(":checked")) {
+        $("#divOutraNecessidadeCab").show();        
+    }
+    else {
+        $("#divOutraNecessidadeCab").hide();        
+        $("[id$=txtDescOutraNecessidadeCab]").val("");        
+    }
+});
+
+function gerenciaOutroCabecalho() {
+    if ($("[id$=chkOutraNecesEscopo]").is(':checked')) {
+        $("#divOutraNecessidadeCab").show();
+    } else {
+        $("#divOutraNecessidadeCab").hide();        
+    }
+}
+//$(document).on('change', "[name$='selContatoTec']", function () {    
+//    var codContato = $(this).find('option:selected').val();    
+//    var codCliente = $("[id$=txtAuxCliente]").val();    
+//    getDadosContatoTecnico(codCliente, codContato);
+//});
+//function getDadosContatoTecnico(cliente, contato) {
+//    $.ajax({
+//        type: "POST",
+//        contentType: "application/json; charset=utf-8",
+//        url: "SOFN00001.aspx/getDadosContatoTecnico",        
+//        data: "{'codigoCliente':'" + cliente + "','codigoContato':'" + contato + "'}",
+//        dataType: "json",
+//        success: function (data) {
+//            var json = JSON.stringify(eval("[" + data.d + "]"));
+//            var obj = JSON.parse(data.d);
+//            var obj2 = $.parseJSON(obj);            
+//            $.each(obj2, function (index, data) {                
+//                if (data.retorno == "0") {
+//                   $("[id$=txtFoneTecnico]").val("");
+//                   $("[id$=txtCelularTecnico]").val("");
+//                   $("[id$=txtEmailTecnico]").val("");
+//                }
+//                else {
+//                    $("[id$=txtFoneTecnico]").val(data.fone);
+//                    $("[id$=txtCelularTecnico]").val(data.celular);
+//                    $("[id$=txtEmailTecnico]").val(data.email);                    
+//                }                
+//            });                     
+//        },
+//        error: function (xhr, status, error) {
+//            alert('Erro getDadosContatoTecnico:' + error);
+//        }
+//    });
+//}
+
+//function getContatosCliente(cliente) {
+//    alert('cliente' + cliente);
+//    $.ajax({
+//        type: "POST",
+//        url: "SOFN00001.aspx/getContatosCliente",
+//        data: "{'codigoCliente':'" + cliente + "'}",
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        success: function (r) {
+//            var contatoTec = $("[id$=selContatoTec]");
+//            contatoTec.empty().append('<option selected="selected" value="">Selecione o contato técnico</option>');
+//            $.each(r.d, function () {
+//                contatoTec.append($("<option></option>").val(this['Value']).html(this['Text']));
+//            });
+//        },
+//        error: function (xhr, status, error) {
+//            alert('Erro getContatosCliente:' + error);
+//        }
+//    });
+//}
+
+

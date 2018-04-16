@@ -1,0 +1,15 @@
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\bin\Debug\GDTLibrary.dll
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\bin\Debug\GDTLibrary.pdb
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\bin\Debug\DOMDB.dll
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\bin\Debug\DOMACE.dll
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\obj\Debug\GDTLibrary.dll
+c:\users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\obj\Debug\GDTLibrary.pdb
+C:\Users\adrianot\documents\visual studio 2015\Projects\GDT\GDTLibrary\obj\Debug\GDTLibrary.csprojResolveAssemblyReference.cache
+C:\Users\danimar\Documents\Visual Studio 2017\Projects\GDT\GDTLibrary\bin\Debug\GDTLibrary.dll
+C:\Users\danimar\Documents\Visual Studio 2017\Projects\GDT\GDTLibrary\bin\Debug\GDTLibrary.pdb
+C:\Users\danimar\Documents\Visual Studio 2017\Projects\GDT\GDTLibrary\bin\Debug\DOMDB.dll
+C:\Users\danimar\Documents\Visual Studio 2017\Projects\GDT\GDTLibrary\obj\Debug\GDTLibrary.csproj.CoreCompileInputs.cache
+C:\Users\danimar\Documents\Visual Studio 2017\Projects\GDT\GDTLibrary\obj\Debug\GDTLibrary.csproj.CopyComplete
+C:\Users\danimar\Documents\Visual Studio 2017\Projects\GDT\GDTLibrary\obj\Debug\GDTLibrary.dll
+C:\Users\danimar\Documents\Visual Studio 2017\Projects\GDT\GDTLibrary\obj\Debug\GDTLibrary.pdb
+C:\Users\danimar\Documents\Visual Studio 2017\Projects\GDT\GDTLibrary\obj\Debug\GDTLibrary.csprojResolveAssemblyReference.cache

@@ -1,0 +1,445 @@
+﻿pre
+{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+#divaticle ul{
+	list-style-type: disc;
+	list-style-position: inside;
+		counter-reset: none; 
+}
+
+#divArticle ol{
+    list-style:  none;
+	counter-reset: section; 
+	list-style-position:inside;
+}
+
+
+#divArticle ol li:before
+{
+    counter-increment: section;
+    content: counters(section, ".") ". ";
+}
+
+#divArticle ul li:before {
+	content: inherit;
+	counter-increment: none;
+}
+
+.article h1
+{
+    font-size: 30px;
+}
+
+.CodeMirror
+{
+    border: 1px solid #eee;
+    height: auto;
+}
+
+#divArticle h1
+{
+    font-size: 20px;
+    /*margin-top: 20px;*/
+}
+
+#divArticle h2
+{
+    font-size: 18px;
+
+}
+
+#divArticle h3
+{
+    font-size: 14px;
+
+}
+
+#divArticle h2, #divArticle h3, #divArticle h4
+{
+    margin-top: 20px;
+}
+
+
+#divArticle ol li
+{
+    /*font-size: 20px;*/
+color: #000;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#divArticle ol li p, #divArticle ol li pre, ol li ul li
+{
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.OlTitulos
+{
+    font: 14px 'Tahoma';
+    font-weight: normal;
+    text-decoration: none;
+    color: #115386;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 3px;
+    margin-top: 20px;
+    padding: 0px;
+}
+
+.OlTitulos2
+{
+    font: 16px 'Tahoma';
+    font-weight: bold;
+    text-decoration: none;
+    color: #115386;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 3px;
+    margin-top: 20px;
+    padding: 0px;
+}
+
+.Texto01
+{
+    font: 11px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #060;
+}
+
+.Texto02
+{
+    font: 12px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #C00;
+}
+
+.Texto03
+{
+    font: 11px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #FFF;
+    background-color: #F90;
+}
+
+.Texto04
+{
+    font: 12px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #cd8ef9;
+}
+
+.Texto05
+{
+    font: 12px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #f77e08;
+}
+
+.Texto06
+{
+    font: 12px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #0e5c98;
+}
+
+.Texto07
+{
+    font: 12px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #ae3894;
+}
+
+
+.Texto08
+{
+    font: 12px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #666;
+}
+
+
+#DivExemplo
+{
+    width: 100%;
+    background-color: #000C;
+    border: 1px dotted #666;
+    padding: 20px;
+    margin: 10px 0 20px 0;
+}
+
+
+#DivAtencao
+{
+    width: 100%;
+    background-color: #EEE;
+    border-top: 1px solid #C30;
+    border-bottom: 1px solid #C30;
+    margin: auto;
+    margin: 10px 0 20px 0;
+}
+
+    #DivAtencao h1
+    {
+        font: 12px 'Arial';
+        font-weight: bold;
+        color: #C30;
+        padding: 20px;
+        padding-bottom: 0px;
+        margin: 0;
+        margin-top: 5px;
+    }
+
+    #DivAtencao p
+    {
+        font-size: 12px;
+        padding: 20px;
+    }
+
+#DivObservacao
+{
+    width: 100%;
+    background-color: #EEE;
+    border-top: 1px solid #036;
+    border-bottom: 1px solid #036;
+    margin: auto;
+    margin: 10px 0 20px 0;
+}
+
+    #DivObservacao h1
+    {
+        font: 12px 'Arial';
+        font-weight: bold;
+        color: #036;
+        padding: 20px;
+        padding-bottom: 0px;
+        margin: 0;
+        margin-top: 5px;
+    }
+
+    #DivObservacao p
+    {
+        font-size: 12px;
+        padding: 20px;
+    }
+
+#DivImportante
+{
+    width: 100%;
+    background-color: #EEE;
+    border-top: 1px solid #330;
+    border-bottom: 1px solid #330;
+    margin: auto;
+    margin: 10px 0 20px 0;
+}
+
+    #DivImportante h1
+    {
+        font: 12px 'Arial';
+        font-weight: bold;
+        color: #330;
+        padding: 20px;
+        padding-bottom: 0px;
+        margin: 0;
+        margin-top: 5px;
+    }
+
+    #DivImportante p
+    {
+        font-size: 12px;
+        padding: 20px;
+    }
+
+
+#DivDestaque
+{
+    width: 100%;
+    background-color: #036;
+    border: 1px dashed #fff;
+    margin: auto;
+    margin: 10px 0 20px 0;
+}
+
+    #DivDestaque p
+    {
+        font-size: 12px;
+        padding: 20px;
+    }
+
+
+
+#DivDestaqueSemFundo
+{
+    width: 100%;
+    border: 1px dashed #036;
+    margin: auto;
+    margin: 10px 0 20px 0;
+}
+
+    #DivDestaqueSemFundo p
+    {
+        font-size: 12px;
+        padding: 20px;
+    }
+
+
+#LinhaNormal
+{
+    height: 1px;
+    width: 100%;
+    background-color: #ccc;
+    font-height: 1px;
+}
+
+#LinhaEspessa
+{
+    height: 4px;
+    width: 100%;
+    background-color: #ccc;
+    font-height: 1px;
+}
+
+#LinhaTracejada
+{
+    height: 0;
+    width: 100%;
+    font-height: 0px;
+    border-bottom: 1px dotted #666;
+}
+
+#Margem20
+{
+    margin: 20px;
+}
+
+.Margem20
+{
+    margin: 20px;
+}
+
+.Margem10
+{
+    margin: 20px;
+}
+
+.Espaco20
+{
+    padding: 20px;
+}
+
+.Espaco10
+{
+    padding: 10px;
+}
+
+
+#ConteudoWikiGeral
+{
+    /*\*/
+    position: absolute;
+    top: 92px;
+    right: 0;
+    bottom: 0;
+    left: 20%;
+    /* Exclude all previous props for Mac IE5 */
+    margin: 26% 31% 1% 21%; /* Cater for Mac IE5 */
+    /*\*/ margin: 0; /* Put back for all the rest */
+    /*\*/ overflow: auto; /* no need for Mac IE5 to see this */
+    background: #fff;
+    padding: 20px;
+}
+
+#Tabela01
+{
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: gray;
+    font: 11px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #000;
+    background-color: #036;
+    width: 90%;
+    margin: auto;
+}
+
+    #Tabela01 tr
+    {
+        height: 10px;
+        background-color: #A4CDFF;
+    }
+
+    #Tabela01 td
+    {
+        padding: 4px;
+    }
+
+.TabelaTitulo01
+{
+    height: 10px;
+    background-color: #036;
+    font: 11px 'Arial';
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+#Tabela02
+{
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: gray;
+    font: 11px 'Arial';
+    font-weight: normal;
+    text-decoration: none;
+    color: #000;
+    background-color: #A4CDFF;
+    width: 90%;
+    margin: auto;
+}
+
+    #Tabela02 tr
+    {
+        height: 10px;
+        background-color: #FFF;
+    }
+
+    #Tabela02 td
+    {
+        padding: 4px;
+    }
+
+.TabelaTitulo02
+{
+    height: 10px;
+    background-color: #A4CDFF;
+    font: 11px 'Arial';
+    font-weight: bold;
+    text-decoration: none;
+    color: #036;
+}
+.ArtigoOLGrande ol li
+{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.ArtigoOLGrande ol li p, ArtigoOLGrande ol li pre, ol li ul li
+{
+    font-weight: normal;
+    font-size: 13px;
+}
